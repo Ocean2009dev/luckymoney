@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Oswald:wght@500;700&display=swap');
+
+@import "tailwindcss";
+
+:root {
+  --color-main: rgba(231, 76, 60, 0.3);
+  --color-border: rgba(192, 57, 43, 1.0);
+  --tet-red: #D40000;
+  --tet-gold: #FFD700;
+  --tet-dark-red: #8B0000;
+}
+
+body {
+  font-family: 'Oswald', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  /* background: linear-gradient(135deg, #8B0000 0%, #D40000 50%, #8B0000 100%); */
+  position: relative;
+}
+
+/* Chase Animation */
+@keyframes chase {
+  0% {
+    left: -150px;
+  }
+
+  100% {
+    left: 110%;
+  }
+}
+
+.chase-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.chase-container {
+  position: absolute;
+  top: 15%;
+  width: 250px;
+  height: 100px;
+  animation: chase 15s linear infinite;
+}
+
+.horse {
+  position: absolute;
+  left: 120px;
+  width: 80px;
+  height: auto;
+  z-index: 1;
+}
+
+.monkey {
+  position: absolute;
+  left: 0;
+  width: 90px;
+  height: auto;
+  z-index: 2;
+  /* transform: scaleX(-1); */
+  /* Face right */
+}
+
+@keyframes staff-swing {
+
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(-15deg);
+  }
+}
+
+.monkey-staff-swing {
+  animation: staff-swing 0.5s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.horse-staff-swing {
+  animation: staff-swing 0.5s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+@layer components {
+  .border-btn {
+    padding: 9px 19px;
+    cursor: pointer;
+    color: #fff;
+    background-color: var(--tet-red);
+    transition: all 0.3s ease;
+  }
+
+  .border-btn:hover {
+    box-shadow: 0 0 10px var(--tet-gold);
+  }
+}
+
+.font-festive {
+  font-family: 'Dancing Script', cursive;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid var(--tet-red);
+  border-radius: 50%;
+  border-top-color: #fff;
+  border-left-color: #fff;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Animations */
+@keyframes float {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes textLeftToRight {
+  0% {
+    transform: translateX(-20%);
+    opacity: 0.5;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0);
+  }
+
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  }
+
+  100% {
+    transform: translateX(20%);
+    opacity: 0.5;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0);
+  }
+}
+
+.animate-textLeftToRight {
+  animation: textLeftToRight 10s ease-in-out infinite alternate;
+  display: block;
+  /* Chuyển về block để margin-top hoạt động chuẩn nhất */
+  width: 100%;
+  padding: 0 20px;
+  /* Thêm một chút padding để tránh chạm lề khi di chuyển */
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--tet-gold);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #b8860b;
+}
+
+.tet-card {
+  background: rgba(139, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  border: 2px solid var(--tet-gold);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.tet-button {
+  background: linear-gradient(to bottom, var(--tet-gold), #b8860b);
+  color: #8B0000;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.tet-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(255, 215, 0, 0.4);
+}
+
+.tet-input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  color: white;
+}
+
+.tet-input:focus {
+  border-color: var(--tet-gold);
+  outline: none;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+}
