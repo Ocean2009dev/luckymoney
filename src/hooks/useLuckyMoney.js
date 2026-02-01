@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
 export const DENOMINATIONS = [
     { value: 1000, label: '1,000 VND', img: '/src/assets/money/1000VND.jpg' },
@@ -12,11 +12,45 @@ export const DENOMINATIONS = [
     { value: 500000, label: '500,000 VND', img: '/src/assets/money/500000VND.jpg' },
 ];
 
+const STORAGE_KEYS = {
+    NAMES: 'lucky_money_names',
+    AMOUNTS: 'lucky_money_amounts',
+    VIEW: 'lucky_money_view',
+    RESULTS: 'lucky_money_results'
+};
+
 export const useLuckyMoney = () => {
-    const [names, setNames] = useState([]);
-    const [selectedAmounts, setSelectedAmounts] = useState([]);
-    const [view, setView] = useState('setup'); // 'setup', 'spinning', 'reveal'
-    const [results, setResults] = useState([]);
+    // Helper to load from localStorage
+    const loadState = (key, defaultValue) => {
+        try {
+            const saved = localStorage.getItem(key);
+            return saved ? JSON.parse(saved) : defaultValue;
+        } catch (e) {
+            return defaultValue;
+        }
+    };
+
+    const [names, setNames] = useState(() => loadState(STORAGE_KEYS.NAMES, []));
+    const [selectedAmounts, setSelectedAmounts] = useState(() => loadState(STORAGE_KEYS.AMOUNTS, []));
+    const [view, setView] = useState(() => loadState(STORAGE_KEYS.VIEW, 'setup')); // 'setup', 'spinning', 'reveal'
+    const [results, setResults] = useState(() => loadState(STORAGE_KEYS.RESULTS, []));
+
+    // Sync state to localStorage
+    useEffect(() => {
+        localStorage.setItem(STORAGE_KEYS.NAMES, JSON.stringify(names));
+    }, [names]);
+
+    useEffect(() => {
+        localStorage.setItem(STORAGE_KEYS.AMOUNTS, JSON.stringify(selectedAmounts));
+    }, [selectedAmounts]);
+
+    useEffect(() => {
+        localStorage.setItem(STORAGE_KEYS.VIEW, JSON.stringify(view));
+    }, [view]);
+
+    useEffect(() => {
+        localStorage.setItem(STORAGE_KEYS.RESULTS, JSON.stringify(results));
+    }, [results]);
 
     const startRandomizing = () => {
         if (names.length === 0 || selectedAmounts.length === 0) return;
@@ -37,11 +71,20 @@ export const useLuckyMoney = () => {
         setView('spinning');
     };
 
+    const resetAll = () => {
+        setNames([]);
+        setSelectedAmounts([]);
+        setResults([]);
+        setView('setup');
+        Object.values(STORAGE_KEYS).forEach(key => localStorage.removeItem(key));
+    };
+
     return {
         names, setNames,
         selectedAmounts, setSelectedAmounts,
         view, setView,
         results, setResults,
-        startRandomizing
+        startRandomizing,
+        resetAll
     };
 };

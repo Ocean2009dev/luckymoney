@@ -35,43 +35,43 @@ const InputView = ({ names, setNames, selectedAmounts, setSelectedAmounts, start
     };
 
     return (
-        <div className="max-w-4xl w-full h-full  p-8 border-4 border-[var(--color-border)] tet-card rounded-xl">
-            <div className='w-full flex justify-between border-b border-[var(--color-border)] pb-4 space-x-8'>
-                <div className='flex md:items-center flex-row md:flex-col flex-1'>
+        <div className="max-w-4xl w-full h-full mt-40 p-4 md:p-8 border-4 border-[var(--color-border)] tet-card rounded-xl">
+            <div className='w-full flex flex-col md:flex-row justify-between border-b border-[var(--color-border)] pb-4 space-y-6 md:space-y-0 md:space-x-8'>
+                <div className='flex flex-col flex-1'>
                     <div className='mb-4 w-full flex'>
                         <input
                             type="text"
                             placeholder='Nhập tên'
-                            className='px-4 py-2 border border-[var(--color-border)] flex-1 text-white bg-red-900/50 outline-none rounded-l-lg'
+                            className='px-4 py-2 border border-[var(--color-border)] flex-1 text-white bg-red-900/50 outline-none rounded-l-lg text-sm md:text-base'
                             value={newName}
                             onChange={(e) => setNewName(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && handleAddName()}
                         />
-                        <button className='border-btn rounded-r-lg px-6' onClick={handleAddName}>Thêm</button>
+                        <button className='border-btn rounded-r-lg px-4 md:px-6 text-sm md:text-base' onClick={handleAddName}>Thêm</button>
                     </div>
                     {/* HIển thị danh sách người được thêm may mắn */}
-                    <div className='w-full h-40 grid grid-cols-2 gap-2 overflow-y-auto p-4 border border-[var(--color-border)] bg-black/20 rounded-lg custom-scrollbar'>
+                    <div className='w-full h-32 md:h-40 grid grid-cols-1 md:grid-cols-2 gap-2 overflow-y-auto p-3 md:p-4 border border-[var(--color-border)] bg-black/20 rounded-lg custom-scrollbar'>
                         {names.map((name, index) => (
-                            <div key={index} className='w-40 h-10 bg-red-600 text-white px-3 py-1 flex items-center justify-between rounded-md text-sm border border-yellow-500/30 group '>
+                            <div key={index} className='w-full md:w-40 h-10 bg-red-600 text-white px-3 py-1 flex items-center justify-between rounded-md text-sm border border-yellow-500/30 group '>
                                 <span className="truncate">{name}</span>
-                                <button className=' bg-red-600 text-white px-3 py-1 flex items-center justify-between rounded-md text-2xl cursor-pointer' onClick={() => handleRemoveName(index)}>×</button>
+                                <button className='bg-red-600 text-white px-2 py-1 flex items-center justify-between rounded-md text-2xl cursor-pointer leading-none' onClick={() => handleRemoveName(index)}>×</button>
                             </div>
                         ))}
                     </div>
                 </div>
-                <div className='grid grid-cols-3 gap-3 flex-1'>
+                <div className='grid grid-cols-3 gap-2 md:gap-3 flex-1'>
                     {amounts.map((amount) => {
                         const isSelected = selectedAmounts.some(a => a.value === amount.value);
                         return (
                             <div
                                 key={amount.id}
-                                className={`w-full h-14 border-4 ${isSelected ? 'border-green-500 ' : 'border-[var(--color-border)]'} cursor-pointer relative transition-all duration-200 hover:border-yellow-400 rounded-lg overflow-hidden`}
+                                className={`w-full h-12 md:h-14 border-2 md:border-4 ${isSelected ? 'border-green-500 ' : 'border-[var(--color-border)]'} cursor-pointer relative transition-all duration-200 hover:border-yellow-400 rounded-lg overflow-hidden`}
                                 onClick={() => toggleAmount(amount)}
                             >
                                 <img src={amount.img} alt={`${amount.id}VND`} className='w-full h-full object-cover' />
                                 {isSelected && (
-                                    <div className="absolute top-1 right-1 bg-green-500 rounded-full p-0.5 shadow-md border-2 border-white z-20">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
+                                    <div className="absolute top-0.5 right-0.5 md:top-1 md:right-1 bg-green-500 rounded-full p-0.5 shadow-md border border-white z-20">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-2 w-2 md:h-3 md:w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
                                             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                         </svg>
                                     </div>

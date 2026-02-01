@@ -13,7 +13,7 @@ function App() {
     selectedAmounts, setSelectedAmounts,
     view, setView,
     results, setResults,
-    startRandomizing
+    startRandomizing, resetAll
   } = useLuckyMoney();
 
   return (
@@ -23,8 +23,11 @@ function App() {
           <img src={monkeyImg} alt="Monkey" className="monkey monkey-staff-swing" />
           <img src={horseImg} alt="Horse" className="horse horse-staff-swing" />
         </div>
+        <h1 className="text-center text-3xl md:text-6xl font-bold text-yellow-400  animate-textLeftToRight px-4">
+          Háo hức hông mọi ngừi
+        </h1>
       </div>
-      <h1 className="text-center text-6xl font-bold text-yellow-400 mb-10 mt-10 animate-textLeftToRight">Tích cực quay tay, vận may sẽ đến</h1>
+
 
       {view === 'setup' && (
         <InputView
@@ -41,7 +44,7 @@ function App() {
       )}
 
       {view === 'reveal' && (
-        <RevealView results={results} setResults={setResults} />
+        <RevealView results={results} setResults={setResults} resetAll={resetAll} />
       )}
 
       <footer className="py-6 text-center text-yellow-600/50 text-sm italic">
