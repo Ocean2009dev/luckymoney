@@ -34,7 +34,7 @@ const RevealView = ({ results, setResults, resetAll }) => {
                                     style={{ backfaceVisibility: "hidden" }}
                                 >
                                     <img
-                                        src="/src/assets/Baolixi/Baolixi1.png"
+                                        src="/baolixi/Baolixi1.png"
                                         alt="Envelope"
                                         className="w-full h-full object-cover"
                                     />

@@ -4,15 +4,15 @@ const InputView = ({ names, setNames, selectedAmounts, setSelectedAmounts, start
     const [newName, setNewName] = useState('');
 
     const amounts = [
-        { id: 1000, img: "/src/assets/money/1000VND.jpg", value: 1000 },
-        { id: 2000, img: "/src/assets/money/2000VND.jpg", value: 2000 },
-        { id: 5000, img: "/src/assets/money/5000VND.jpg", value: 5000 },
-        { id: 10000, img: "/src/assets/money/10000VND.jpg", value: 10000 },
-        { id: 20000, img: "/src/assets/money/20000VND.jpg", value: 20000 },
-        { id: 50000, img: "/src/assets/money/50000VND.jpg", value: 50000 },
-        { id: 100000, img: "/src/assets/money/100000VND.jpg", value: 100000 },
-        { id: 200000, img: "/src/assets/money/200000VND.jpg", value: 200000 },
-        { id: 500000, img: "/src/assets/money/500000VND.jpg", value: 500000 },
+        { id: 1000, img: "/money/1000VND.jpg", value: 1000 },
+        { id: 2000, img: "/money/2000VND.jpg", value: 2000 },
+        { id: 5000, img: "/money/5000VND.jpg", value: 5000 },
+        { id: 10000, img: "/money/10000VND.jpg", value: 10000 },
+        { id: 20000, img: "/money/20000VND.jpg", value: 20000 },
+        { id: 50000, img: "/money/50000VND.jpg", value: 50000 },
+        { id: 100000, img: "/money/100000VND.jpg", value: 100000 },
+        { id: 200000, img: "/money/200000VND.jpg", value: 200000 },
+        { id: 500000, img: "/money/500000VND.jpg", value: 500000 },
     ];
 
     const toggleAmount = (amount) => {

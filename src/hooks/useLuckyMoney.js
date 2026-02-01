@@ -1,15 +1,15 @@
 import { useState, useMemo, useEffect } from 'react';
 
 export const DENOMINATIONS = [
-    { value: 1000, label: '1,000 VND', img: '/src/assets/money/1000VND.jpg' },
-    { value: 2000, label: '2,000 VND', img: '/src/assets/money/2000VND.jpg' },
-    { value: 5000, label: '5,000 VND', img: '/src/assets/money/5000VND.jpg' },
-    { value: 10000, label: '10,000 VND', img: '/src/assets/money/10000VND.jpg' },
-    { value: 20000, label: '20,000 VND', img: '/src/assets/money/20000VND.jpg' },
-    { value: 50000, label: '50,000 VND', img: '/src/assets/money/50000VND.jpg' },
-    { value: 100000, label: '100,000 VND', img: '/src/assets/money/100000VND.jpg' },
-    { value: 200000, label: '200,000 VND', img: '/src/assets/money/200000VND.jpg' },
-    { value: 500000, label: '500,000 VND', img: '/src/assets/money/500000VND.jpg' },
+    { value: 1000, label: '1,000 VND', img: '/money/1000VND.jpg' },
+    { value: 2000, label: '2,000 VND', img: '/money/2000VND.jpg' },
+    { value: 5000, label: '5,000 VND', img: '/money/5000VND.jpg' },
+    { value: 10000, label: '10,000 VND', img: '/money/10000VND.jpg' },
+    { value: 20000, label: '20,000 VND', img: '/money/20000VND.jpg' },
+    { value: 50000, label: '50,000 VND', img: '/money/50000VND.jpg' },
+    { value: 100000, label: '100,000 VND', img: '/money/100000VND.jpg' },
+    { value: 200000, label: '200,000 VND', img: '/money/200000VND.jpg' },
+    { value: 500000, label: '500,000 VND', img: '/money/500000VND.jpg' },
 ];
 
 const STORAGE_KEYS = {
