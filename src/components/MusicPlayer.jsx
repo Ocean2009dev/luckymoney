@@ -3,41 +3,59 @@ import musicFile from '../assets/music/melodia_dla_zuzi.mp3';
 
 const MusicPlayer = () => {
     const [isPlaying, setIsPlaying] = useState(false);
+    const [error, setError] = useState(false);
     const audioRef = useRef(null);
 
     const toggleMusic = () => {
+        if (!audioRef.current) return;
+
         if (isPlaying) {
             audioRef.current.pause();
+            setIsPlaying(false);
         } else {
-            audioRef.current.play().catch(error => {
-                console.error("Audio playback failed:", error);
-            });
+            audioRef.current.play()
+                .then(() => {
+                    setIsPlaying(true);
+                    setError(false);
+                })
+                .catch(err => {
+                    console.error("Playback failed:", err);
+                    setError(true);
+                    setIsPlaying(false);
+                });
         }
-        setIsPlaying(!isPlaying);
     };
 
+    // Attempt to handle mobile interaction requirements
     useEffect(() => {
-        // Attempt to play on mount (might be blocked by browser)
-        const playAttempt = () => {
-            // Many browsers block autopay without interaction
+        const handleFirstInteraction = () => {
+            if (!isPlaying && audioRef.current) {
+                // We don't auto-play here to respect user but we can 'unlock' it
+                // Most browsers unlock the audio context on first click
+            }
         };
-        playAttempt();
-    }, []);
+        window.addEventListener('click', handleFirstInteraction, { once: true });
+        return () => window.removeEventListener('click', handleFirstInteraction);
+    }, [isPlaying]);
 
     return (
-        <div className="fixed bottom-8 right-8 z-50">
-            <audio ref={audioRef} src={musicFile} loop />
-            <button
-                onClick={toggleMusic}
-                className="w-14 h-14 rounded-full bg-yellow-500 text-red-800 flex items-center justify-center shadow-2xl hover:scale-110 transition-transform border-4 border-red-800"
-            >
-                <i className={`bx ${isPlaying ? 'bx-volume-full bx-tada' : 'bx-volume-mute'} text-3xl`}></i>
-            </button>
+        <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 flex flex-col items-end group">
+            <audio ref={audioRef} src={musicFile} loop preload="auto" />
 
             {/* Tooltip hint */}
-            <div className="absolute bottom-full right-0 mb-2 whitespace-nowrap bg-red-800 text-yellow-400 text-xs px-2 py-1 rounded border border-yellow-500 opacity-60">
-                {isPlaying ? 'Tắt nhạc' : 'Bật nhạc Xuân'}
+            <div className={`mb-2 whitespace-nowrap bg-red-800 text-yellow-400 text-[10px] md:text-xs px-2 py-1 rounded border border-yellow-500 transition-opacity duration-300 ${isPlaying ? 'opacity-40 group-hover:opacity-100' : 'opacity-100 shadow-[0_0_10px_rgba(255,215,0,0.3)] anim-pulse-slow'}`}>
+                {error ? '❌ Lỗi nhạc' : (isPlaying ? '🎵 Đang phát nhạc Xuân' : '🧧 Bật nhạc Xuân')}
             </div>
+
+            <button
+                onClick={toggleMusic}
+                className={`w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 border-2 md:border-4 ${isPlaying
+                        ? 'bg-yellow-500 text-red-800 border-red-800 scale-100'
+                        : 'bg-red-700 text-yellow-400 border-yellow-500 scale-110 anim-pulse-slow'
+                    } hover:scale-125 active:scale-90`}
+            >
+                <i className={`bx ${isPlaying ? 'bx-volume-full bx-tada' : 'bx-volume-mute'} text-2xl md:text-3xl`}></i>
+            </button>
         </div>
     );
 };
